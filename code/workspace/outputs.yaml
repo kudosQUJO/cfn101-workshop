@@ -47,4 +47,17 @@ Resources:
         - Key: Name
           Value: !Join [ '-', [ !Ref EnvironmentType, webserver ] ]
 
-  # Add your code here!
+  WebServerEIP:
+    Type: 'AWS::EC2::EIP'
+    Properties:
+      Domain: vpc
+      InstanceId: !Ref WebServerInstance
+
+Outputs:
+  WebServerPublicDNS:
+    Description: 'Public DNS of EC2 instance'
+    Value: !GetAtt WebServerInstance.PublicDnsName
+
+  WebServerElasticIP:
+    Description: 'Elastic IP assigned to EC2'
+    Value: !Ref WebServerEIP
